@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 console.log(chalk.green(`starting project in ${process.env.NODE_ENV} environment, port ${port}`)); // eslint-disable-line
 
 const app = express();
+const api = require('./api/index.js');
 
 // middlewares
 log.init(app); // logging policy (async)
@@ -18,27 +19,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/users', (req, res) => {
-  res.json([
-    {
-      id: 1,
-      firstName: 'Bob',
-      lastName: 'Smith',
-      email: 'bob@gmail.com',
-    },
-    {
-      id: 2,
-      firstName: 'Tammy',
-      lastName: 'Norton',
-      email: 'tnorton@yahoo.com',
-    },
-    {
-      id: 3,
-      firstName: 'Tina',
-      lastName: 'Lee',
-      email: 'lee.tina@hotmail.com, ',
-    },
-  ]);
+// api
+app.use('/api', api);
+
+/*
+ * General 404
+ */
+app.use((req, res) => {
+  res.status(404).send({ url: `${req.originalUrl}  not found` });
 });
 
 // start the server
