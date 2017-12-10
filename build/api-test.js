@@ -7,7 +7,7 @@ const glob = require('glob');
 
 // requite the app itself
 // using GLOBAL variable, so don't have to load it multiple times (for each version)
-global.app = require('../server.js');
+global.app = require('../src/server.js');
 
 // test env.
 process.env.NODE_ENV = 'test';
@@ -28,4 +28,3 @@ glob(`${srcDir}/api/**/*.test.js`, (err, files) => {
     });
   });
 });
-

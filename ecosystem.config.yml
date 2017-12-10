@@ -1,0 +1,7 @@
+apps:
+  - script   : ./server.js
+    name     : 'api-app'
+    instances:
+    env    :
+      PORT    : 3000
+      NODE_ENV: production
